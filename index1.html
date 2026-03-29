@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nissan City Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0b0b0b;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* INTRO */
+#intro {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.intro-content {
+  text-align: center;
+}
+
+.intro-logo {
+  width: 180px;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: logoAnim 1.2s ease forwards;
+}
+
+.intro-text {
+  margin-top: 25px;
+  letter-spacing: 8px;
+  opacity: 0;
+  animation: textAnim 1s ease forwards;
+  animation-delay: 1s;
+}
+
+@keyframes logoAnim { to {opacity:1; transform:scale(1);} }
+@keyframes textAnim { to {opacity:0.7;} }
+
+.intro-exit { animation: exitAnim 0.8s forwards; }
+@keyframes exitAnim { to {opacity:0;} }
+
+/* HEADER */
+.top-bar {
+  position: fixed;
+  top: 20px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo img { width:110px; }
+
+.logo span {
+  font-size: 14px;
+  letter-spacing: 5px;
+  opacity: 0.7;
+}
+
+.timer-box {
+  font-size: 12px;
+  opacity: 0.4;
+}
+
+/* SECCIONES */
+.section {
+  padding: 140px 20px 80px;
+  text-align: center;
+}
+
+/* BENEFICIOS */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 60px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.beneficio-item {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.beneficio-item:hover {
+  transform: scale(1.05);
+}
+
+.beneficio-item img {
+  max-width: 130px;
+}
+
+/* AUTOS */
+.grid-autos {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 50px;
+  max-width: 1100px;
+  margin: auto;
+  position: relative;
+}
+
+.car-item {
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.car-item p {
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+.car {
+  width: 170px;
+  height: 110px;
+  object-fit: contain;
+}
+
+/* DIRECCIÓN */
+.left { transform: scaleX(-1); }
+
+/* CONFIGURADOR TESLA */
+.grid-autos.focus-mode .car-item {
+  opacity: 0.1;
+  transform: scale(0.7);
+}
+
+.grid-autos.focus-mode .car-item.active {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(2);
+  opacity: 1;
+  z-index: 10;
+}
+
+/* GLOW */
+.grid-autos.focus-mode::before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,0,50,0.25), transparent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(80px);
+}
+
+/* INPUT */
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 15px;
+  width: 260px;
+  background: #1a1a1a;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+/* BOTONES */
+.cta {
+  background: #fff;
+  color: black;
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-secundario {
+  margin-top: 30px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 14px 30px;
+  border-radius: 30px;
+  background: transparent;
+  color: white;
+}
+
+.hidden { display:none; }
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="intro-content">
+    <img src="logo.jpg" class="intro-logo">
+    <div class="intro-text">NISSAN CITY HUB</div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div class="logo">
+    <img src="logo.jpg">
+    <span>NISSAN CITY HUB</span>
+  </div>
+  <div id="contador" class="timer-box"></div>
+</div>
+
+<!-- BENEFICIOS -->
+<div class="section" id="beneficios">
+<h1>Acceso a beneficios exclusivos</h1>
+<p>19 clientes atendidos recientemente</p>
+
+<div class="grid">
+<div class="beneficio-item" onclick="mostrarModelos('Kit')"><img src="kit.jpg"><p>KIT DE SEGURIDAD</p></div>
+<div class="beneficio-item" onclick="mostrarModelos('Birlos')"><img src="birlos.jpg"><p>BIRLOS</p></div>
+<div class="beneficio-item" onclick="mostrarModelos('Tatuado')"><img src="tatuado.jpg"><p>TATUADO</p></div>
+<div class="beneficio-item" onclick="mostrarModelos('Tapetes')"><img src="tapetes.jpg"><p>TAPETES</p></div>
+<div class="beneficio-item" onclick="mostrarModelos('Servicio')"><h2>1er Servicio gratis</h2></div>
+<div class="beneficio-item" onclick="mostrarModelos('Película')"><img src="polarizado.jpg"><p>PELICULA</p></div>
+</div>
+</div>
+
+<!-- MODELOS -->
+<div class="section hidden" id="modelos">
+<h1>Selecciona tu modelo</h1>
+
+<div class="grid-autos">
+
+<div class="car-item" onclick="selectCar(this,'Versa')"><img src="VERSA.PNG" class="car left"><p>VERSA</p></div>
+<div class="car-item" onclick="selectCar(this,'Sentra')"><img src="SENTRA.PNG" class="car left"><p>SENTRA</p></div>
+<div class="car-item" onclick="selectCar(this,'Kicks')"><img src="kicks.png" class="car"><p>KICKS</p></div>
+<div class="car-item" onclick="selectCar(this,'X-Trail')"><img src="xtrail.png" class="car"><p>X-TRAIL</p></div>
+<div class="car-item" onclick="selectCar(this,'e-POWER')"><img src="epower.png" class="car left"><p>E-POWER</p></div>
+<div class="car-item" onclick="selectCar(this,'Magnite')"><img src="magnite.png" class="car left"><p>MAGNITE</p></div>
+<div class="car-item" onclick="selectCar(this,'Frontier')"><img src="frontier.png" class="car"><p>FRONTIER</p></div>
+<div class="car-item" onclick="selectCar(this,'Pathfinder')"><img src="pathfinder.png" class="car"><p>PATHFINDER</p></div>
+
+</div>
+</div>
+
+<!-- DATOS -->
+<div class="section hidden" id="datos">
+<h1>Registro</h1>
+<input id="nombre" placeholder="Nombre">
+<input id="telefono" placeholder="Teléfono">
+<button class="cta" onclick="enviarDatos()">Continuar</button>
+</div>
+
+<!-- FINAL -->
+<div class="section hidden" id="final">
+<h1>Registro completado</h1>
+<p id="folioTexto"></p>
+<button class="cta-secundario" onclick="abrirWhats()">Solicitar asesoría</button>
+</div>
+
+<script>
+let beneficio="",modelo="",folio="";
+
+/* INTRO */
+window.onload=()=>{
+setTimeout(()=>{
+intro.classList.add("intro-exit");
+setTimeout(()=>intro.style.display="none",800);
+},2200);
+};
+
+/* TIMER */
+let tiempo=600;
+setInterval(()=>{
+let m=Math.floor(tiempo/60);
+let s=tiempo%60;
+contador.innerText=`Disponible ${m}:${s<10?'0'+s:s}`;
+tiempo--;
+},1000);
+
+/* FLUJO */
+function cambiar(a,b){
+a.style.display="none";
+b.classList.remove("hidden");
+}
+
+function mostrarModelos(b){
+beneficio=b;
+cambiar(beneficios,modelos);
+}
+
+function selectCar(el,m){
+modelo=m;
+
+let cont=document.querySelector(".grid-autos");
+
+document.querySelectorAll(".car-item").forEach(e=>e.classList.remove("active"));
+
+el.classList.add("active");
+cont.classList.add("focus-mode");
+
+/* ⬇️ MÁS TIEMPO PARA APRECIAR */
+setTimeout(()=>{
+cambiar(modelos,datos);
+},2200);
+}
+
+function enviarDatos(){
+folio="NS"+Math.floor(Math.random()*100000);
+folioTexto.innerHTML=`Folio: ${folio}<br>${beneficio}<br>${modelo}`;
+cambiar(datos,final);
+}
+
+function abrirWhats(){
+let texto=`Hola, Folio: ${folio}, ${beneficio}, ${modelo}`;
+window.open(`https://wa.me/521XXXXXXXXXX?text=${encodeURIComponent(texto)}`);
+}
+</script>
+
+</body>
+</html>
